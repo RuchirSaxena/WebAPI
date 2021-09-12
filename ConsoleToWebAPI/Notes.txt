@@ -1,0 +1,64 @@
+﻿https://www.youtube.com/watch?v=tx1hsf_R-0o&list=PLaFzfwmPR7_IPzBR4AI0eoojmIdTFJmHs&index=40
+Notes
+=====
+Each .NET core app is by default a console app.
+We can add some services and make some changes to convert this console app into a Web API project
+
+
+Host Builder
+Host Builder is an object and its used to add some fetures in the application.
+CreateDefaultBuilder ->
+ By using the CreateDefaultBuilder we will get Dependency Injection by default
+ Configuration =>
+ 1. appSettings.json
+ 2. appSettings.{env}.json
+ 3. User secrets
+ 4. Enviroment Variables etc.
+ Logging
+ Set the content root path to the result of GetCurrentDirectory() method
+ 
+ConfigureWebHostDefaults ->
+ Provides support for HTTP
+ Sets the Kestrel server as the web server.
+ Enables the IIS integration etc.
+ 
+Startup.cs class
+ we will add 2 methods ConfigureServices(IServiceCollection services), Configure(IApplicationBuilder app, IWebHostEnvironment env)
+ Configure() => Here we add our middlewares
+ 
+Controllers in web API
+A controller class in Web API has a "controller" suffix e.g EmployeeController
+The controller class must be inherited from ControllerBase
+Use APIController attribute on the controller
+Use Attrubute Routing 
+The controller base class provides many method and properties to handle HTTP Request
+Attrubute routing requirement
+Handle the client Error i.e 400 status code
+Multipart/form-data request inference
+Bind the incoming data with parameters using some more attributes
+
+Http Request 
+Middleware
+It sits between the Http Request Pipeline
+Common Middleware
+=================
+1. Routing
+2. Authentication
+3. Add exception page
+
+Methods in Middleware
+1. Run() method is used to complete the middleware excution
+2. Use() method is used to insert the new middleware in the pipeline i.e custom middleware
+3. Next() method is used to pass the execution to the next middleware
+4. Map() method is used to map the middleware to Specific URL
+
+Routing
+==========
+Routingis the process of mapping incoming request(URL) to a particular resourse (the action method)
+ => A single resourse can we accessed by any no. of unique routes creted for it
+ => But multiple resourse cannot be accessed by single route
+ => Routing is ebabled through Middleware
+ => We need to insert the following 2 middleware in http pipeline
+    1. UseRouting()
+	2. UseEndpoint()
+

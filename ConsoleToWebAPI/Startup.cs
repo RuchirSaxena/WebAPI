@@ -15,6 +15,7 @@ namespace ConsoleToWebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddTransient<CustomMiddleware>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -31,7 +32,8 @@ namespace ConsoleToWebAPI
                 await context.Response.WriteAsync("Hello form Use Method 2 \n");
             });
             // Custom code execution based on the Route
-            app.Map("/ruchir", CustomCode);
+           // app.Map("/ruchir", CustomCode);
+            app.UseMiddleware<CustomMiddleware>();
 
             app.Use(async (context, next) =>
             {
